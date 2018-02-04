@@ -4,15 +4,38 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class name="com.toxin.hibernateTest.Developer" table="developers">
+
         <meta attribute="class-description">
             This class contains developer's details.
         </meta>
+
         <id name="id" type="int" column="id">
             <generator class="native"/>
         </id>
+
+        <list name="projects" cascade="all">
+            <key column="developer_id"/>
+            <list-index column="idx"/>
+            <one-to-many class="com.toxin.hibernateTest.Project"/>
+        </list>
+
         <property name="firstName" column="first_name" type="string"/>
         <property name="lastName" column="last_name" type="string"/>
         <property name="specialty" column="specialty" type="string"/>
         <property name="salary" column="salary" type="int"/>
+
+    </class>
+
+    <class name="com.toxin.hibernateTest.Project" table="projects">
+        <meta attribute="class-description">
+            This class contains project for developers
+        </meta>
+
+        <id name="id" type="int" column="id">
+            <generator class="native"/>
+        </id>
+
+        <property name="name" column="name" type="string"/>
+        <property name="company" column="company" type="string"/>
     </class>
 </hibernate-mapping>

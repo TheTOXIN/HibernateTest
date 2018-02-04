@@ -47,20 +47,30 @@ public class DeveloperDAO {
 
         List<Developer> developers= session.createQuery("FROM Developer").list();
 
+        for (Developer dev : developers) {
+            System.out.println(dev);
+            for (Object obj : dev.getProjects()) {
+                Project proj = (Project) obj;
+                System.out.println(proj);
+            }
+            System.out.println();
+        }
+
         transaction.commit();
         session.close();
 
         return developers;
     }
 
-    public void addDeveloper(String firstName, String lastName, String specialty, int salary) {
+    public void addDeveloper(Developer developer) {
         Session session = sessionFactory.openSession();
         Transaction transaction;
 
         transaction = session.beginTransaction();
 
-        Developer developer = new Developer(firstName, lastName, specialty, salary);
-        session.save(developer);
+        Developer dev = developer;
+        dev.setProjects(developer.getProjects());
+        session.save(dev);
 
         transaction.commit();
         session.close();
@@ -73,6 +83,7 @@ public class DeveloperDAO {
         transaction = session.beginTransaction();
 
         session.createSQLQuery("DELETE FROM developers").executeUpdate();
+        session.createSQLQuery("DELETE FROM projects").executeUpdate();
 
         transaction.commit();
         session.close();

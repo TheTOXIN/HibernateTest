@@ -1,5 +1,7 @@
 package com.toxin.hibernateTest;
 
+import java.util.List;
+
 public class Developer {
 
     private int id;
@@ -12,6 +14,8 @@ public class Developer {
 
     private int salary;
 
+    private List projects;
+
     public Developer() {
 
     }
@@ -21,6 +25,14 @@ public class Developer {
         this.lastName = lastName;
         this.specialty = specialty;
         this.salary = salary;
+    }
+
+    public Developer(String firstName, String lastName, String specialty, int salary, List projects) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.specialty = specialty;
+        this.salary = salary;
+        this.projects = projects;
     }
 
     public int getId() {
@@ -63,6 +75,14 @@ public class Developer {
         this.salary = salary;
     }
 
+    public List getProjects() {
+        return projects;
+    }
+
+    public void setProjects(List projects) {
+        this.projects = projects;
+    }
+
     @Override
     public String toString() {
         return "Developer{" +
@@ -70,7 +90,7 @@ public class Developer {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", specialty='" + specialty + '\'' +
-                ", salary='" + salary + '\'' +
+                ", salary=" + salary +
                 '}';
     }
 }
