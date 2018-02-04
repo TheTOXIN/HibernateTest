@@ -11,7 +11,6 @@ public class DeveloperDAO {
     private static SessionFactory sessionFactory =
             new Configuration().configure().buildSessionFactory();
 
-
     public void removeDeveloper(int id) {
         Session session = sessionFactory.openSession();
         Transaction transaction;
@@ -84,6 +83,22 @@ public class DeveloperDAO {
 
         session.createSQLQuery("DELETE FROM developers").executeUpdate();
         session.createSQLQuery("DELETE FROM projects").executeUpdate();
+
+        transaction.commit();
+        session.close();
+    }
+
+    public void addProjects(List<Project> projects) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction;
+
+        transaction = session.beginTransaction();
+
+        for (Project project : projects) {
+            Project proj = project;
+            proj.setCompany(project.getCompany());
+            session.save(proj);
+        }
 
         transaction.commit();
         session.close();

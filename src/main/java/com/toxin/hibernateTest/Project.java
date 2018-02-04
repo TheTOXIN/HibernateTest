@@ -1,14 +1,22 @@
 package com.toxin.hibernateTest;
 
+import javax.persistence.CascadeType;
+import javax.persistence.JoinColumn;
+
+import javax.persistence.OneToOne;
+
 public class Project {
     private int id;
     private String name;
-    private String company;
+
+    @OneToOne(optional = false, cascade = CascadeType.ALL)
+    @JoinColumn(name = "company_id")
+    private Company company;
 
     public Project() {
     }
 
-    public Project(String name, String company) {
+    public Project(String name, Company company) {
         this.name = name;
         this.company = company;
     }
@@ -29,11 +37,11 @@ public class Project {
         this.name = name;
     }
 
-    public String getCompany() {
+    public Company getCompany() {
         return company;
     }
 
-    public void setCompany(String company) {
+    public void setCompany(Company company) {
         this.company = company;
     }
 
